@@ -5,18 +5,45 @@ output:
     keep_md: true
 ---
 
+## Initialize anything necessary to this process
+
+     echo = TRUE
+     library(ggplot2)
 
 ## Loading and preprocessing the data
+This analysis is based on a brief set of data simply recording the number of steps taken in any given 5 minute interval over the course of a couple months from a single individual.  The data itself is stored within this repository, and will be extracted from an archival file upon processing and then read into memory.
 
+     unzip("activity.zip")
+     activity <- read.csv("activity.csv")
 
+Further, the facilitate analysis, the date field will be converted into an R-recognized date format.    
 
+     activity$date <- as.Date(activity$date)
+     
 ## What is mean total number of steps taken per day?
+First, we want to get a grasp of what has occurred during the time period recorded.  To do this, we'll first get a sum of each day's activity...
 
+     total_by_the_day <- sapply(split(activity$steps, activity$date), sum)
+     all_steps_chart <- ggplot(activity, aes(date,steps))
+     all_steps_chart + geom_bar(stat="identity") + ggtitle("Total Steps Recorded per Day")
+     
+... and establish mean and median steps they individual as taken, overall.     
 
-
+     mean_steps <- mean(total_by_the_day, na.rm=T)
+     median_steps <- median(total_by_the_day, na.rm=T)
+     
+As a result, we see that, in any given day, our indivdual has walked a meean of `r mean_steps`, and a median of `r median_steps` steps.
+     
 ## What is the average daily activity pattern?
+Secondly, we want to get an indication of what this individual did over the course of an average day.
 
-
+     average_steps_by_interval <- aggregate(steps~interval, data=activity, FUN="mean", na.rm=T)
+     maximum_average_steps_taken <- average_steps_by_interval[average_steps_by_interval$steps==max(average_steps_by_interval$steps),]
+     maximum_average_steps_taken$interval <- as.factor(sprintf("%04d",maximum_average_steps_taken$interval))
+     daily_averages_chart <- ggplot(average_steps_by_interval, aes(interval,steps))
+     daily_averages_chart + geom_path()  + geom_point() + ggtitle("Mean Steps Taken per 5 Minute Interval") + xlab("Minutes of Day")
+     
+Upon quick examination, it looks as though, on average, that our participant takes the most steps in the morning, with a maximum average `r maximum_average_steps_taken$steps` steps taken at `r maximum_average_steps_taken$interval` hours.  The participant then goes on to maintain a somewhat steady amount of activity until mid-evening.  It also appears our participate sleeps sane hours.
 
 ## Imputing missing values
 
