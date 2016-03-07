@@ -89,11 +89,14 @@ for(n in 1:nrow(estimated_activity)) {
 
 With plausible mean values now available in our theoretical data set, let's run the plot again.
 
-```{,eval=TRUE}
+
+```r
 imputed_by_the_day <- aggregate(steps~date, data=estimated_activity, FUN="sum", na.rm=T)
 imputed_steps_chart <- ggplot(imputed_by_the_day, aes(date,steps))
 imputed_steps_chart + geom_bar(stat="identity") + ggtitle("Total Steps Recorded per Day")
 ```
+
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9-1.png)
      
 As a result of this effort, our chart has not changed much, but we have gained a few days that were previously missing.
 
@@ -116,6 +119,6 @@ imputed_averages_chart <- ggplot(estimated_activity, aes(interval,steps))
 imputed_averages_chart + stat_summary(fun.y='mean',geom='line') + facet_wrap(~daytype,nrow=2) + ggtitle("Imputed Mean Steps Taken per 5 Minute Interval")
 ```
 
-![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10-1.png)
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11-1.png)
 
 Separating the 5-minute interval means between weekday and weekend shows a pretty distinct difference.  On the weekday, our participant behcame active earlier and more intensely int he morning.  But, in on the weeekend, where the morning is distinctly lazier, the afternoon busier than on a weekday, if on par with a weekend morning's activity.

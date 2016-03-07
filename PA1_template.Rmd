@@ -29,7 +29,7 @@ activity$date <- as.Date(activity$date)
 ## What is mean total number of steps taken per day?
 First, we want to get a grasp of what has occurred during the time period recorded.  To do this, we'll first get a sum of each day's activity...
 
-```{r,eval=TRUE}
+```{r,eval=TRUE, fig.height=7, fig.width=10}
 total_by_the_day <- aggregate(steps~date, data=activity, FUN="sum", na.rm=T)
 all_steps_chart <- ggplot(total_by_the_day, aes(date,steps))
 all_steps_chart + geom_bar(stat="identity") + ggtitle("Total Steps Recorded per Day")
@@ -47,7 +47,7 @@ As a result, we see that, in any given day, our indivdual has walked a meean of 
 ## What is the average daily activity pattern?
 Secondly, we want to get an indication of what this individual did over the course of an average day.
 
-```{r,eval=TRUE}
+```{r,eval=TRUE, fig.height=7, fig.width=10}
 average_steps_by_interval <- aggregate(steps~interval, data=activity, FUN="mean", na.rm=T)
 maximum_average_steps_taken <- average_steps_by_interval[average_steps_by_interval$steps==max(average_steps_by_interval$steps),]
 maximum_average_steps_taken$interval <- as.factor(sprintf("%04d",maximum_average_steps_taken$interval))
@@ -77,7 +77,7 @@ for(n in 1:nrow(estimated_activity)) {
 
 With plausible mean values now available in our theoretical data set, let's run the plot again.
 
-```{,eval=TRUE}
+```{r,eval=TRUE, fig.height=7, fig.width=10}
 imputed_by_the_day <- aggregate(steps~date, data=estimated_activity, FUN="sum", na.rm=T)
 imputed_steps_chart <- ggplot(imputed_by_the_day, aes(date,steps))
 imputed_steps_chart + geom_bar(stat="identity") + ggtitle("Total Steps Recorded per Day")
@@ -95,7 +95,7 @@ Taking a look, now, at our theorical new results, our new mean daily steps of `r
 ## Are there differences in activity patterns between weekdays and weekends?
 Lastly, lets take a look at how the activity of our participant differts on the weekend versus weekdays.  First step is to dervice the difference beteween the two in our theoretically completed data set.
 
-```{r,eval=TRUE}
+```{r,eval=TRUE, fig.height=7, fig.width=10}
 estimated_activity$daytype <- as.factor(ifelse(weekdays(estimated_activity$date) %in% c("Saturday","Sunday"), "weekend", "weekday"))
 imputed_steps_by_interval <- aggregate(steps~interval, data=estimated_activity, FUN="mean", na.rm=T)
 imputed_averages_chart <- ggplot(estimated_activity, aes(interval,steps))
