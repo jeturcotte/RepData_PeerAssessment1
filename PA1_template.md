@@ -60,7 +60,7 @@ average_steps_by_interval <- aggregate(steps~interval, data=activity, FUN="mean"
 maximum_average_steps_taken <- average_steps_by_interval[average_steps_by_interval$steps==max(average_steps_by_interval$steps),]
 maximum_average_steps_taken$interval <- as.factor(sprintf("%04d",maximum_average_steps_taken$interval))
 daily_averages_chart <- ggplot(average_steps_by_interval, aes(interval,steps))
-daily_averages_chart + geom_path()  + geom_point() + ggtitle("Mean Steps Taken per 5 Minute Interval") + xlab("Minutes of Day")
+daily_averages_chart + geom_path() + ggtitle("Mean Steps Taken per 5 Minute Interval") + xlab("Minutes of Day")
 ```
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)

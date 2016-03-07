@@ -29,7 +29,7 @@ activity$date <- as.Date(activity$date)
 ## What is mean total number of steps taken per day?
 First, we want to get a grasp of what has occurred during the time period recorded.  To do this, we'll first get a sum of each day's activity...
 
-```{r}
+```{r,eval=TRUE}
 total_by_the_day <- aggregate(steps~date, data=activity, FUN="sum", na.rm=T)
 all_steps_chart <- ggplot(total_by_the_day, aes(date,steps))
 all_steps_chart + geom_bar(stat="identity") + ggtitle("Total Steps Recorded per Day")
@@ -52,7 +52,7 @@ average_steps_by_interval <- aggregate(steps~interval, data=activity, FUN="mean"
 maximum_average_steps_taken <- average_steps_by_interval[average_steps_by_interval$steps==max(average_steps_by_interval$steps),]
 maximum_average_steps_taken$interval <- as.factor(sprintf("%04d",maximum_average_steps_taken$interval))
 daily_averages_chart <- ggplot(average_steps_by_interval, aes(interval,steps))
-daily_averages_chart + geom_path()  + geom_point() + ggtitle("Mean Steps Taken per 5 Minute Interval") + xlab("Minutes of Day")
+daily_averages_chart + geom_path() + ggtitle("Mean Steps Taken per 5 Minute Interval") + xlab("Minutes of Day")
 ```
      
 Upon quick examination, it looks as though, on average, that our participant takes the most steps in the morning, with a maximum average `r maximum_average_steps_taken$steps` steps taken at `r maximum_average_steps_taken$interval` hours.  The participant then goes on to maintain a somewhat steady amount of activity until mid-evening.  It also appears our participate sleeps sane hours.
