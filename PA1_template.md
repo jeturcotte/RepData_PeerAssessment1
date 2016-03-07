@@ -65,7 +65,7 @@ daily_averages_chart + geom_path() + ggtitle("Mean Steps Taken per 5 Minute Inte
 
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6-1.png)
      
-Upon quick examination, it looks as though, on average, that our participant takes the most steps in the morning, with a maximum average 206.1698113 steps taken at 0835 hours.  The participant then goes on to maintain a somewhat steady amount of activity until mid-evening.  It also appears our participate sleeps sane hours.
+Upon quick examination, it looks as though, on average, that our participant takes the most steps in the morning, with a maximum average approximately 206 steps taken at 0835 hours.  The participant then goes on to maintain a somewhat steady amount of activity until mid-evening.  It also appears our participate sleeps sane hours.
 
 ## Imputing missing values
 In looking at these results so far, it certainly appears that there are periods of time where no data is available.  So, next, we will see how many of those non-values there are.
@@ -106,7 +106,7 @@ imputed_mean_steps <- mean(imputed_by_the_day$steps)
 imputed_median_steps <- median(imputed_by_the_day$steps)
 ```
 
-Taking a look, now, at our theorical new results, our new mean daily steps of 1.0766189 &times; 10<sup>4</sup> and median daily steps of 1.0766189 &times; 10<sup>4</sup> being so close to the original untreated data lend some credence to veracity of these estimated inclusions.  The data seems safe to proceeding with.
+Taking a look, now, at our theorical new results, our new mean daily steps of 10766 and median daily steps of 10766 being so close to the original untreated data lend some credence to veracity of these estimated inclusions.  The data seems safe to proceeding with.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 Lastly, lets take a look at how the activity of our participant differts on the weekend versus weekdays.  First step is to dervice the difference beteween the two in our theoretically completed data set.
